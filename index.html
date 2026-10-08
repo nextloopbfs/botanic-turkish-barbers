@@ -1,0 +1,2372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Botanic Turkish Barbers — Belfast</title>
+  <meta name="description" content="Premium Turkish barber shop in the heart of Belfast's Botanic Quarter. Traditional craftsmanship, modern style." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─────────────────────────────────────────
+       CSS Custom Properties
+    ───────────────────────────────────────── */
+    :root {
+      --charcoal:       #1c1c1c;
+      --charcoal-dark:  #141414;
+      --charcoal-mid:   #252525;
+      --charcoal-light: #2e2e2e;
+      --cream:          #f2ebe0;
+      --cream-dark:     #e8dfd0;
+      --cream-light:    #faf7f2;
+      --gold:           #c9a84c;
+      --gold-light:     #ddb96a;
+      --gold-dark:      #a8883a;
+      --gold-muted:     #7a6228;
+      --white:          #ffffff;
+      --text-primary:   #1c1c1c;
+      --text-muted:     #6b6460;
+      --section-gap:    clamp(80px, 12vw, 140px);
+      --container:      1200px;
+      --radius:         2px;
+      --transition:     0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ─────────────────────────────────────────
+       Reset & Base
+    ───────────────────────────────────────── */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--charcoal-dark);
+      color: var(--cream);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    /* ─────────────────────────────────────────
+       Typography
+    ───────────────────────────────────────── */
+    .font-serif    { font-family: 'Playfair Display', serif; }
+    .font-refined  { font-family: 'Cormorant Garamond', serif; }
+    .font-sans     { font-family: 'Inter', sans-serif; }
+
+    .eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 500;
+      line-height: 1.15;
+      color: var(--cream-light);
+    }
+
+    .section-title--light {
+      color: var(--charcoal);
+    }
+
+    .body-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--cream-dark);
+      opacity: 0.85;
+    }
+
+    .body-text--dark {
+      color: var(--text-muted);
+      opacity: 1;
+    }
+
+    /* ─────────────────────────────────────────
+       Layout helpers
+    ───────────────────────────────────────── */
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 60px);
+    }
+
+    .section-pad {
+      padding: var(--section-gap) 0;
+    }
+
+    .gold-rule {
+      display: block;
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 20px 0 32px;
+    }
+
+    /* ─────────────────────────────────────────
+       Scroll animations (JS-driven)
+    ───────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.45s; }
+    .reveal-delay-5 { transition-delay: 0.6s; }
+
+    /* ─────────────────────────────────────────
+       NAV
+    ───────────────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 24px clamp(20px, 5vw, 60px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s ease, padding 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #navbar.scrolled {
+      background: rgba(20, 20, 20, 0.97);
+      padding: 16px clamp(20px, 5vw, 60px);
+      box-shadow: 0 1px 0 rgba(201, 168, 76, 0.15);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-logo__name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--cream-light);
+      line-height: 1;
+    }
+
+    .nav-logo__sub {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cream-dark);
+      transition: color var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      font-size: 0.7rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.18em !important;
+      color: var(--gold) !important;
+      border: 1px solid var(--gold) !important;
+      padding: 10px 22px !important;
+      transition: background var(--transition), color var(--transition) !important;
+    }
+
+    .nav-cta::after { display: none !important; }
+
+    .nav-cta:hover {
+      background: var(--gold) !important;
+      color: var(--charcoal-dark) !important;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--cream);
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--charcoal-dark);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .mobile-menu a {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--cream);
+      transition: color 0.3s;
+    }
+
+    .mobile-menu a:hover { color: var(--gold); }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+    }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    #hero {
+      position: relative;
+      height: 100svh;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        url('https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=1800&q=85&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center 30%;
+      transform-origin: center;
+      animation: heroZoom 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroZoom {
+      from { transform: scale(1); }
+      to   { transform: scale(1.06); }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(14, 14, 14, 0.95) 0%,
+        rgba(14, 14, 14, 0.55) 40%,
+        rgba(14, 14, 14, 0.15) 70%,
+        transparent 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: clamp(40px, 8vw, 80px) clamp(20px, 5vw, 60px);
+      max-width: 860px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.3s ease forwards;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 6.5vw, 5.5rem);
+      font-weight: 500;
+      line-height: 1.08;
+      color: var(--cream-light);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.5s ease forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--cream-dark);
+      opacity: 0;
+      max-width: 500px;
+      margin-bottom: 40px;
+      animation: fadeUp 0.9s 0.7s ease forwards;
+    }
+
+    .hero-subtitle strong { opacity: 0; }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.9s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: var(--charcoal-dark);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 17px 36px;
+      border: 1px solid var(--gold);
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition), transform 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--gold);
+    }
+
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--cream);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 17px 0;
+      border: none;
+      cursor: pointer;
+      transition: color var(--transition);
+      border-bottom: 1px solid rgba(242, 235, 224, 0.3);
+    }
+
+    .btn-ghost:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      right: clamp(20px, 5vw, 60px);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeUp 0.9s 1.3s ease forwards;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 56px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    .hero-scroll-hint span {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      writing-mode: vertical-rl;
+    }
+
+    /* ─────────────────────────────────────────
+       TRUST BAR
+    ───────────────────────────────────────── */
+    #trust-bar {
+      background: var(--charcoal-mid);
+      border-top: 1px solid rgba(201, 168, 76, 0.12);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+      padding: 28px 0;
+    }
+
+    .trust-bar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(32px, 6vw, 80px);
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .trust-icon {
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    .trust-item p {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cream-dark);
+      opacity: 0.75;
+    }
+
+    .trust-divider {
+      width: 1px;
+      height: 28px;
+      background: rgba(201, 168, 76, 0.2);
+    }
+
+    @media (max-width: 600px) {
+      .trust-divider { display: none; }
+    }
+
+    /* ─────────────────────────────────────────
+       SERVICES
+    ───────────────────────────────────────── */
+    #services {
+      background: var(--charcoal-dark);
+      padding: var(--section-gap) 0;
+    }
+
+    .services-header {
+      max-width: 560px;
+      margin-bottom: 64px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      background: rgba(201, 168, 76, 0.08);
+      border: 1px solid rgba(201, 168, 76, 0.08);
+    }
+
+    .service-card {
+      background: var(--charcoal-dark);
+      padding: 44px 36px;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transition: background var(--transition);
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .service-card:hover { background: var(--charcoal-mid); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.75rem;
+      color: var(--gold-muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+      opacity: 0.7;
+    }
+
+    .service-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--cream-light);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .service-desc {
+      font-size: 0.85rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--cream-dark);
+      opacity: 0.65;
+      margin-bottom: 28px;
+    }
+
+    .service-price {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .service-price__from {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold-muted);
+    }
+
+    .service-price__amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: var(--gold);
+    }
+
+    .service-price__duration {
+      font-size: 0.7rem;
+      color: var(--cream-dark);
+      opacity: 0.5;
+      margin-left: 4px;
+    }
+
+    /* ─────────────────────────────────────────
+       ABOUT
+    ───────────────────────────────────────── */
+    #about {
+      background: var(--cream);
+      padding: var(--section-gap) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #about::before {
+      content: 'CRAFT';
+      position: absolute;
+      top: 50%;
+      right: -40px;
+      transform: translateY(-50%) rotate(-90deg);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(6rem, 14vw, 12rem);
+      font-weight: 700;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(28, 28, 28, 0.06);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 8vw, 100px);
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    .about-image-wrap {
+      position: relative;
+    }
+
+    .about-image-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 60%;
+      height: 60%;
+      border: 1px solid var(--gold);
+      z-index: 0;
+      opacity: 0.35;
+    }
+
+    .about-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top center;
+      position: relative;
+      z-index: 1;
+      filter: contrast(1.05) saturate(0.85);
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .stat-box {
+      border-left: 2px solid var(--gold);
+      padding: 8px 0 8px 20px;
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ─────────────────────────────────────────
+       GALLERY
+    ───────────────────────────────────────── */
+    #gallery {
+      background: var(--charcoal-dark);
+      padding: var(--section-gap) 0;
+    }
+
+    .gallery-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto;
+      gap: 8px;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      position: relative;
+      background: var(--charcoal-mid);
+    }
+
+    .gallery-item:nth-child(1) { grid-column: span 5; grid-row: span 2; }
+    .gallery-item:nth-child(2) { grid-column: span 4; }
+    .gallery-item:nth-child(3) { grid-column: span 3; }
+    .gallery-item:nth-child(4) { grid-column: span 4; }
+    .gallery-item:nth-child(5) { grid-column: span 3; }
+    .gallery-item:nth-child(6) { grid-column: span 5; }
+    .gallery-item:nth-child(7) { grid-column: span 7; }
+
+    @media (max-width: 900px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+      .gallery-item { grid-column: span 1 !important; grid-row: span 1 !important; }
+      .gallery-item:nth-child(1) { grid-column: span 2 !important; }
+    }
+
+    @media (max-width: 540px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item { grid-column: span 1 !important; }
+    }
+
+    .gallery-img {
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  filter 0.5s ease;
+      filter: grayscale(15%) contrast(1.05);
+    }
+
+    .gallery-item:hover .gallery-img {
+      transform: scale(1.08);
+      filter: grayscale(0%) contrast(1.1);
+    }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(20, 20, 20, 0.3);
+      transition: opacity 0.5s ease;
+    }
+
+    .gallery-item:hover::after { opacity: 0; }
+
+    /* ─────────────────────────────────────────
+       REVIEWS — Premium marquee testimonials
+    ───────────────────────────────────────── */
+    #reviews {
+      background: var(--charcoal-mid);
+      padding: var(--section-gap) 0;
+      overflow: hidden;
+    }
+
+    .reviews-header-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: clamp(32px, 6vw, 80px);
+      align-items: end;
+      margin-bottom: 64px;
+    }
+
+    @media (max-width: 768px) {
+      .reviews-header-grid { grid-template-columns: 1fr; }
+    }
+
+    .trust-aggregate {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .aggregate-score-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.4rem;
+      font-weight: 400;
+      color: var(--cream-light);
+      line-height: 1;
+    }
+
+    .aggregate-score-max {
+      font-size: .82rem;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .aggregate-stars {
+      color: var(--gold);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      margin-top: 5px;
+    }
+
+    .aggregate-count {
+      font-size: .68rem;
+      letter-spacing: .08em;
+      color: var(--cream-dark);
+      opacity: .5;
+      margin-top: 3px;
+    }
+
+    .agg-divider {
+      width: 1px;
+      height: 48px;
+      background: rgba(201,168,76,.15);
+    }
+
+    .platform-badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .platform-badge {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 14px;
+      border: 1px solid rgba(201,168,76,.12);
+      background: var(--charcoal-dark);
+    }
+
+    .platform-badge__icon {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .6rem; font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .platform-badge__icon--g  { background: #fff; color: #4285f4; }
+    .platform-badge__icon--fb { background: #1877f2; color: #fff; }
+
+    .platform-badge__info { display: flex; flex-direction: column; gap: 1px; }
+
+    .platform-badge__label {
+      font-size: .62rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--cream-dark);
+      opacity: .6;
+    }
+
+    .platform-badge__stars {
+      color: var(--gold);
+      font-size: .65rem;
+      letter-spacing: 1px;
+    }
+
+    .reviews-deco-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(5rem, 10vw, 8rem);
+      font-weight: 400;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201,168,76,.13);
+      line-height: 1;
+      user-select: none;
+      text-align: right;
+    }
+
+    .reviews-deco-label {
+      font-size: .62rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold-muted);
+      margin-top: 8px;
+      opacity: .65;
+      text-align: right;
+    }
+
+    /* Featured pull-quote */
+    .featured-quote {
+      background: var(--charcoal-dark);
+      border: 1px solid rgba(201,168,76,.12);
+      border-left: 3px solid var(--gold);
+      padding: clamp(28px, 4vw, 48px);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 56px;
+    }
+
+    .featured-quote::before {
+      content: '\201C';
+      position: absolute;
+      top: -20px; left: 28px;
+      font-family: 'Playfair Display', serif;
+      font-size: 9rem;
+      color: var(--gold);
+      opacity: .06;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .featured-quote__text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.78;
+      color: var(--cream-light);
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+      margin-bottom: 28px;
+    }
+
+    .featured-quote__meta {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .fq-avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,.2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: .95rem;
+      color: var(--gold);
+      background: var(--charcoal-mid);
+      flex-shrink: 0;
+    }
+
+    .fq-name {
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--cream-light);
+      letter-spacing: .03em;
+    }
+
+    .fq-detail {
+      font-size: .68rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+      letter-spacing: .04em;
+    }
+
+    .fq-stars {
+      color: var(--gold);
+      font-size: .88rem;
+      letter-spacing: 2px;
+      margin-left: auto;
+    }
+
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(201,168,76,.07);
+      border: 1px solid rgba(201,168,76,.18);
+      padding: 4px 9px;
+      margin-top: 5px;
+    }
+
+    /* Marquee */
+    .marquee-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .marquee-wrap::before,
+    .marquee-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 120px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .marquee-wrap::before {
+      left: 0;
+      background: linear-gradient(to right, var(--charcoal-mid), transparent);
+    }
+
+    .marquee-wrap::after {
+      right: 0;
+      background: linear-gradient(to left, var(--charcoal-mid), transparent);
+    }
+
+    .marquee-row {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      padding: 10px 0;
+    }
+
+    .marquee-row--fwd { animation: mScrollL 50s linear infinite; }
+    .marquee-row--rev { animation: mScrollR 56s linear infinite; margin-top: 20px; }
+
+    .marquee-wrap:hover .marquee-row { animation-play-state: paused; }
+
+    @keyframes mScrollL {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    @keyframes mScrollR {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0); }
+    }
+
+    /* Review card */
+    .review-card {
+      width: 340px;
+      flex-shrink: 0;
+      background: var(--charcoal-dark);
+      border: 1px solid rgba(201,168,76,.1);
+      padding: 28px 28px 22px;
+      position: relative;
+      cursor: default;
+      transition: background var(--transition),
+                  border-color var(--transition),
+                  transform var(--transition);
+    }
+
+    .review-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+
+    .review-card:hover {
+      background: var(--charcoal-light);
+      border-color: rgba(201,168,76,.22);
+      transform: translateY(-3px);
+    }
+
+    .review-card:hover::after { opacity: .55; }
+
+    .review-card--wide { width: 420px; }
+
+    .rc-header {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 16px;
+    }
+
+    .rc-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: .9rem;
+      color: var(--gold);
+      background: var(--charcoal-mid);
+      border: 1px solid rgba(201,168,76,.18);
+      position: relative;
+    }
+
+    .rc-platform-dot {
+      position: absolute;
+      bottom: -2px; right: -2px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--charcoal-dark);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .42rem;
+      font-weight: 700;
+    }
+
+    .rc-platform-dot--g  { background: #fff; color: #4285f4; }
+    .rc-platform-dot--fb { background: #1877f2; color: #fff; }
+
+    .rc-name {
+      font-size: .86rem;
+      font-weight: 600;
+      color: var(--cream-light);
+      letter-spacing: .02em;
+      margin-bottom: 2px;
+    }
+
+    .rc-date {
+      font-size: .66rem;
+      color: var(--text-muted);
+      letter-spacing: .04em;
+    }
+
+    .rc-stars {
+      color: var(--gold);
+      font-size: .78rem;
+      letter-spacing: 1px;
+      margin-bottom: 13px;
+    }
+
+    .rc-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.04rem;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.78;
+      color: var(--cream-dark);
+      margin-bottom: 16px;
+      opacity: .88;
+    }
+
+    .rc-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 13px;
+      border-top: 1px solid rgba(255,255,255,.04);
+    }
+
+    .rc-service {
+      font-size: .6rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold-muted);
+      font-weight: 500;
+    }
+
+    .rc-verified {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: .58rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .rc-verified svg { width: 9px; height: 9px; color: var(--gold); }
+
+    .reviews-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 56px;
+      flex-wrap: wrap;
+    }
+
+    .btn-outline-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--cream-dark);
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: 15px 28px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.12);
+      transition: border-color var(--transition), color var(--transition);
+      cursor: pointer;
+    }
+
+    .btn-outline-gold:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ─────────────────────────────────────────
+       TEAM
+    ───────────────────────────────────────── */
+    #team {
+      background: var(--cream-light);
+      padding: var(--section-gap) 0;
+    }
+
+    .team-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 64px;
+    }
+
+    .team-header .gold-rule { margin: 20px auto 32px; }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 32px;
+    }
+
+    .team-card {
+      position: relative;
+    }
+
+    .team-img-wrap {
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .team-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      filter: grayscale(20%);
+      transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  filter 0.5s ease;
+    }
+
+    .team-card:hover .team-img {
+      transform: scale(1.06);
+      filter: grayscale(0%);
+    }
+
+    .team-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(20,20,20,0.65) 0%, transparent 50%);
+      transition: opacity 0.4s;
+    }
+
+    .team-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      margin-bottom: 4px;
+    }
+
+    .team-role {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .team-bio {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+
+    /* ─────────────────────────────────────────
+       CONTACT / LOCATION
+    ───────────────────────────────────────── */
+    #contact {
+      background: var(--charcoal-dark);
+      padding: var(--section-gap) 0;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 8vw, 100px);
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .contact-block h4 {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .contact-block p,
+    .contact-block address {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--cream-dark);
+      opacity: 0.8;
+      font-style: normal;
+    }
+
+    .hours-table {
+      width: 100%;
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+      font-size: 0.88rem;
+    }
+
+    .hours-day {
+      color: var(--cream-dark);
+      opacity: 0.7;
+      font-weight: 300;
+    }
+
+    .hours-time {
+      color: var(--cream-light);
+      font-weight: 400;
+    }
+
+    .hours-time.closed {
+      color: var(--gold-muted);
+      opacity: 0.6;
+    }
+
+    .map-placeholder {
+      background: var(--charcoal-mid);
+      border: 1px solid rgba(201, 168, 76, 0.1);
+      aspect-ratio: 4/3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-placeholder iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: grayscale(60%) contrast(1.1) invert(0.9);
+      opacity: 0.7;
+    }
+
+    .map-pin-overlay {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: rgba(14,14,14,0.85);
+      padding: 20px 28px;
+      border: 1px solid rgba(201, 168, 76, 0.2);
+    }
+
+    .map-pin-overlay p {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+      text-align: center;
+    }
+
+    .map-pin-overlay span {
+      font-size: 1.6rem;
+    }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    footer {
+      background: var(--charcoal-dark);
+      border-top: 1px solid rgba(201, 168, 76, 0.12);
+      padding: 48px 0 32px;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--cream-light);
+    }
+
+    .footer-logo span {
+      display: block;
+      font-size: 0.6rem;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 4px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cream-dark);
+      opacity: 0.6;
+      transition: opacity 0.3s, color 0.3s;
+    }
+
+    .footer-links a:hover { opacity: 1; color: var(--gold); }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cream-dark);
+      font-size: 0.85rem;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .social-icon:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201, 168, 76, 0.06);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(201, 168, 76, 0.08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--cream-dark);
+      opacity: 0.4;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─────────────────────────────────────────
+       STICKY BOOKING BUTTON
+    ───────────────────────────────────────── */
+    #sticky-book {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 900;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
+    }
+
+    #sticky-book.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+
+    .sticky-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: var(--charcoal-dark);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 15px 28px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 2px 8px rgba(201,168,76,0.25);
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+
+    .sticky-btn:hover {
+      background: var(--gold-light);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 4px 12px rgba(201,168,76,0.35);
+      transform: translateY(-2px);
+    }
+
+    /* ─────────────────────────────────────────
+       SECTION DIVIDER
+    ───────────────────────────────────────── */
+    .divider-gold {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.25;
+    }
+
+    /* ─────────────────────────────────────────
+       GRAIN TEXTURE OVERLAY
+    ───────────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 128px 128px;
+      opacity: 0.022;
+    }
+
+    /* ─────────────────────────────────────────
+       UTILITIES
+    ───────────────────────────────────────── */
+    .text-gold  { color: var(--gold); }
+    .text-cream { color: var(--cream-light); }
+    .mt-4  { margin-top: 16px; }
+    .mt-8  { margin-top: 32px; }
+    .mt-12 { margin-top: 48px; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--charcoal-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-muted); border-radius: 3px; }
+
+    /* Selection */
+    ::selection { background: var(--gold); color: var(--charcoal-dark); }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════ -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">
+      <span class="nav-logo__name">Botanic Turkish Barbers</span>
+      <span class="nav-logo__sub">Belfast · Est. 2014</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#team">Barbers</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#book" class="nav-cta">Book Now</a></li>
+    </ul>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services"  onclick="closeMobileMenu()">Services</a>
+    <a href="#about"     onclick="closeMobileMenu()">About</a>
+    <a href="#gallery"   onclick="closeMobileMenu()">Gallery</a>
+    <a href="#team"      onclick="closeMobileMenu()">Barbers</a>
+    <a href="#contact"   onclick="closeMobileMenu()">Contact</a>
+    <a href="#book"      onclick="closeMobileMenu()" style="color:var(--gold)">Book Now</a>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Botanic Quarter, Belfast</p>
+      <h1 class="hero-title">
+        The Art of<br>
+        <em>the Perfect Cut.</em>
+      </h1>
+      <p class="hero-subtitle">
+        Traditional Turkish barbering. Modern precision.
+        A heritage of craft, delivered in the heart of Belfast since 2014.
+      </p>
+      <div class="hero-actions">
+        <a href="#book" class="btn-primary" id="heroBookBtn">
+          <span>Book an Appointment</span>
+          <span style="font-size:0.9rem">→</span>
+        </a>
+        <a href="#services" class="btn-ghost">View Services</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       TRUST BAR
+  ═══════════════════════════════════════ -->
+  <div id="trust-bar">
+    <div class="container">
+      <div class="trust-bar-inner">
+        <div class="trust-item">
+          <span class="trust-icon">★</span>
+          <p>5.0 Google Rating</p>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <span class="trust-icon">✦</span>
+          <p>10+ Years Experience</p>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <span class="trust-icon">◆</span>
+          <p>Traditional Turkish Techniques</p>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <span class="trust-icon">✦</span>
+          <p>Walk-ins Welcome</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       SERVICES
+  ═══════════════════════════════════════ -->
+  <section id="services" class="section-pad">
+    <div class="container">
+      <div class="services-header reveal">
+        <p class="eyebrow">Our Services</p>
+        <span class="gold-rule"></span>
+        <h2 class="section-title">Craft without compromise</h2>
+        <p class="body-text mt-4">
+          Every service is delivered with time-honoured technique and meticulous attention to detail. No rushing, no cutting corners.
+        </p>
+      </div>
+
+      <div class="services-grid">
+
+        <div class="service-card reveal">
+          <p class="service-number">01</p>
+          <h3 class="service-name">Classic Cut &amp; Finish</h3>
+          <p class="service-desc">A precision scissor or clipper cut, shaped and styled to suit your face and lifestyle. Includes hot towel and aftercare.</p>
+          <div class="service-price">
+            <span class="service-price__from">From</span>
+            <span class="service-price__amount">£18</span>
+            <span class="service-price__duration">· 30 min</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-1">
+          <p class="service-number">02</p>
+          <h3 class="service-name">Cut &amp; Beard Trim</h3>
+          <p class="service-desc">Full haircut paired with expert beard shaping, definition, and conditioning — the complete gentleman's grooming.</p>
+          <div class="service-price">
+            <span class="service-price__from">From</span>
+            <span class="service-price__amount">£28</span>
+            <span class="service-price__duration">· 50 min</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-2">
+          <p class="service-number">03</p>
+          <h3 class="service-name">Traditional Hot Shave</h3>
+          <p class="service-desc">The full Turkish experience — steamed hot towels, blade straight-razor shave, and cooling aftershave balm.</p>
+          <div class="service-price">
+            <span class="service-price__from">From</span>
+            <span class="service-price__amount">£20</span>
+            <span class="service-price__duration">· 35 min</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-3">
+          <p class="service-number">04</p>
+          <h3 class="service-name">Beard Sculpt</h3>
+          <p class="service-desc">Precision beard shaping, outlining, and styling with warm oil massage. Bring definition to any length or style.</p>
+          <div class="service-price">
+            <span class="service-price__from">From</span>
+            <span class="service-price__amount">£15</span>
+            <span class="service-price__duration">· 25 min</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-1">
+          <p class="service-number">05</p>
+          <h3 class="service-name">Kids Cut</h3>
+          <p class="service-desc">Patient, precise cuts for boys under 16. A welcoming environment where young gents leave looking sharp.</p>
+          <div class="service-price">
+            <span class="service-price__from">From</span>
+            <span class="service-price__amount">£12</span>
+            <span class="service-price__duration">· 20 min</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-2">
+          <p class="service-number">06</p>
+          <h3 class="service-name">The Full Works</h3>
+          <p class="service-desc">Our signature treatment — haircut, hot shave, beard sculpt, scalp massage, and hot towel finish. The ultimate.</p>
+          <div class="service-price">
+            <span class="service-price__from">From</span>
+            <span class="service-price__amount">£45</span>
+            <span class="service-price__duration">· 75 min</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-12" style="text-align:center">
+        <a href="#book" class="btn-primary reveal">Book Your Appointment</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       ABOUT
+  ═══════════════════════════════════════ -->
+  <section id="about">
+    <div class="container section-pad">
+      <div class="about-grid">
+
+        <div class="about-image-wrap reveal">
+          <img
+            class="about-img"
+            src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&q=85&auto=format&fit=crop"
+            alt="Master barber at work"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="reveal reveal-delay-2">
+          <p class="eyebrow">Our Story</p>
+          <span class="gold-rule"></span>
+          <h2 class="section-title section-title--light">
+            Rooted in tradition.<br>Refined by experience.
+          </h2>
+          <p class="body-text body-text--dark mt-8">
+            Botanic Turkish Barbers has been a fixture of Belfast's Botanic Quarter since 2014. Founded by master barber Mehmet Yilmaz, the shop was built on a simple belief — that a truly great cut is the result of patience, skill, and genuine care for the client.
+          </p>
+          <p class="body-text body-text--dark mt-4">
+            We practice techniques passed down through generations of Turkish barbering: the hot towel ritual, open-blade shaping, and the unhurried attention that turns a haircut into an experience. Every man who sits in our chair leaves looking — and feeling — like himself, only sharper.
+          </p>
+
+          <div class="about-stats">
+            <div class="stat-box reveal reveal-delay-1">
+              <p class="stat-number">10+</p>
+              <p class="stat-label">Years serving Belfast</p>
+            </div>
+            <div class="stat-box reveal reveal-delay-2">
+              <p class="stat-number">4</p>
+              <p class="stat-label">Master barbers</p>
+            </div>
+            <div class="stat-box reveal reveal-delay-3">
+              <p class="stat-number">5★</p>
+              <p class="stat-label">Google reviews</p>
+            </div>
+            <div class="stat-box reveal reveal-delay-4">
+              <p class="stat-number">2000+</p>
+              <p class="stat-label">Happy clients</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       GALLERY
+  ═══════════════════════════════════════ -->
+  <section id="gallery" class="section-pad">
+    <div class="container">
+      <div class="gallery-header">
+        <div class="reveal">
+          <p class="eyebrow">Gallery</p>
+          <span class="gold-rule"></span>
+          <h2 class="section-title">The craft, up close.</h2>
+        </div>
+        <a href="#book" class="btn-primary reveal reveal-delay-2">Book Now</a>
+      </div>
+
+      <div class="gallery-grid reveal">
+        <div class="gallery-item">
+          <img class="gallery-img" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=800&q=80&auto=format&fit=crop" alt="Barber cutting hair" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img class="gallery-img" src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&q=80&auto=format&fit=crop" alt="Barbershop interior" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img class="gallery-img" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80&auto=format&fit=crop" alt="Beard trim" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img class="gallery-img" src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&q=80&auto=format&fit=crop" alt="Hot towel shave" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img class="gallery-img" src="https://images.unsplash.com/photo-1582095133179-bfd08e2fb6b8?w=600&q=80&auto=format&fit=crop" alt="Razor shave" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img class="gallery-img" src="https://images.unsplash.com/photo-1559599101-f09722fb4948?w=800&q=80&auto=format&fit=crop" alt="Classic barbershop chair" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img class="gallery-img" src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&q=80&auto=format&fit=crop" alt="Master barber" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       REVIEWS
+  ═══════════════════════════════════════ -->
+  <section id="reviews" class="section-pad">
+    <div class="container">
+
+      <!-- Header grid: title + deco number -->
+      <div class="reviews-header-grid">
+        <div class="reveal">
+          <p class="eyebrow">Client Reviews</p>
+          <span class="gold-rule"></span>
+          <h2 class="section-title">Trusted by <em style="font-style:italic;color:var(--gold-light)">thousands</em><br>across Belfast.</h2>
+
+          <div class="trust-aggregate">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:6px">
+                <span class="aggregate-score-num">5.0</span>
+                <span class="aggregate-score-max">/ 5</span>
+              </div>
+              <div class="aggregate-stars">★★★★★</div>
+              <div class="aggregate-count">Based on 340+ verified reviews</div>
+            </div>
+            <div class="agg-divider"></div>
+            <div class="platform-badges">
+              <div class="platform-badge">
+                <div class="platform-badge__icon platform-badge__icon--g">G</div>
+                <div class="platform-badge__info">
+                  <span class="platform-badge__label">Google</span>
+                  <span class="platform-badge__stars">★★★★★</span>
+                </div>
+              </div>
+              <div class="platform-badge">
+                <div class="platform-badge__icon platform-badge__icon--fb">f</div>
+                <div class="platform-badge__info">
+                  <span class="platform-badge__label">Facebook</span>
+                  <span class="platform-badge__stars">★★★★★</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-2">
+          <div class="reviews-deco-num">340+</div>
+          <div class="reviews-deco-label">Verified reviews</div>
+        </div>
+      </div>
+
+      <!-- Featured pull-quote -->
+      <div class="featured-quote reveal reveal-delay-1">
+        <p class="featured-quote__text">
+          "I've visited barbershops in Istanbul, London, and Dublin — Botanic Turkish Barbers holds its own against every single one. Mehmet runs a genuinely masterful shop. The attention to detail, the ritual of it, the results — it's not like any other haircut I've had in Belfast."
+        </p>
+        <div class="featured-quote__meta">
+          <div class="fq-avatar">N</div>
+          <div>
+            <div class="fq-name">Niall Brennan</div>
+            <div class="fq-detail">Regular client since 2017 · Cut &amp; Hot Shave</div>
+            <div class="verified-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:10px;height:10px"><polyline points="20 6 9 17 4 12"/></svg>
+              Verified Google Review
+            </div>
+          </div>
+          <div class="fq-stars">★★★★★</div>
+        </div>
+      </div>
+
+    </div><!-- /container -->
+
+    <!-- Dual marquee rows — full bleed -->
+    <div class="marquee-wrap reveal reveal-delay-2">
+      <div class="marquee-row marquee-row--fwd" id="reviewsRow1"></div>
+      <div class="marquee-row marquee-row--rev" id="reviewsRow2"></div>
+    </div>
+
+    <div class="container">
+      <div class="reviews-cta reveal">
+        <a href="#book" class="btn-primary">Book an Appointment →</a>
+        <a href="https://g.page/r/botanic-barbers-belfast/review" target="_blank" rel="noopener" class="btn-outline-gold">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Leave a Review
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       TEAM
+  ═══════════════════════════════════════ -->
+  <section id="team">
+    <div class="container section-pad">
+      <div class="team-header reveal">
+        <p class="eyebrow">Meet the Barbers</p>
+        <span class="gold-rule"></span>
+        <h2 class="section-title section-title--light">The hands behind the craft.</h2>
+        <p class="body-text body-text--dark mt-4">
+          Each of our barbers brings years of dedicated training and a genuine passion for their work.
+        </p>
+      </div>
+
+      <div class="team-grid">
+
+        <div class="team-card reveal">
+          <div class="team-img-wrap">
+            <img class="team-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format&fit=crop" alt="Mehmet Yilmaz" loading="lazy" />
+            <div class="team-overlay"></div>
+          </div>
+          <h3 class="team-name">Mehmet Yilmaz</h3>
+          <p class="team-role">Master Barber · Founder</p>
+          <p class="team-bio">Trained in Istanbul and Belfast, Mehmet brings 18 years of mastery to every cut. He founded Botanic Turkish Barbers with a vision of bringing authentic Turkish craftsmanship to Northern Ireland.</p>
+        </div>
+
+        <div class="team-card reveal reveal-delay-1">
+          <div class="team-img-wrap">
+            <img class="team-img" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80&auto=format&fit=crop" alt="Ali Demir" loading="lazy" />
+            <div class="team-overlay"></div>
+          </div>
+          <h3 class="team-name">Ali Demir</h3>
+          <p class="team-role">Senior Barber</p>
+          <p class="team-bio">Ali's razor-sharp precision and easy manner have made him a favourite among regulars. Specialises in fades, skin fades, and classic gentlemen's cuts with a contemporary edge.</p>
+        </div>
+
+        <div class="team-card reveal reveal-delay-2">
+          <div class="team-img-wrap">
+            <img class="team-img" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80&auto=format&fit=crop" alt="Connor Walsh" loading="lazy" />
+            <div class="team-overlay"></div>
+          </div>
+          <h3 class="team-name">Connor Walsh</h3>
+          <p class="team-role">Barber</p>
+          <p class="team-bio">Belfast-born and Botanic-trained, Connor has a natural talent for textured cuts and beard sculpting. His calm chair-side manner puts first-timers immediately at ease.</p>
+        </div>
+
+        <div class="team-card reveal reveal-delay-3">
+          <div class="team-img-wrap">
+            <img class="team-img" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&q=80&auto=format&fit=crop" alt="Karim Hassan" loading="lazy" />
+            <div class="team-overlay"></div>
+          </div>
+          <h3 class="team-name">Karim Hassan</h3>
+          <p class="team-role">Barber</p>
+          <p class="team-bio">Karim joined the team in 2021 after completing his training in London. His bold creativity and technical precision have quickly made him a trusted name among younger clientele.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       BOOKING ANCHOR
+  ═══════════════════════════════════════ -->
+  <section id="book" style="background:var(--charcoal-mid); padding: 80px 0;">
+    <div class="container" style="text-align:center; max-width:680px">
+      <div class="reveal">
+        <p class="eyebrow">Ready?</p>
+        <span class="gold-rule" style="margin:20px auto 32px"></span>
+        <h2 class="section-title">Book your appointment.</h2>
+        <p class="body-text mt-4" style="max-width:480px; margin:16px auto 0;">
+          Walk-ins always welcome. Or secure your slot in advance and we'll have everything ready for you.
+        </p>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:40px;">
+          <a href="tel:+442890000000" class="btn-primary">📞 &nbsp;Call to Book</a>
+          <a href="https://wa.me/442890000000" class="btn-ghost" style="padding:17px 24px; border:1px solid rgba(242,235,224,0.2)">WhatsApp Us</a>
+        </div>
+        <p style="margin-top:28px; font-size:0.78rem; color:var(--cream-dark); opacity:0.45; letter-spacing:0.06em;">
+          028 9000 0000 &nbsp;·&nbsp; 10 Botanic Avenue, Belfast BT7 1JQ
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       CONTACT / LOCATION
+  ═══════════════════════════════════════ -->
+  <section id="contact" class="section-pad">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:56px">
+        <p class="eyebrow">Find Us</p>
+        <span class="gold-rule"></span>
+        <h2 class="section-title">Come in. The chair is yours.</h2>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+
+          <div class="contact-block reveal">
+            <h4>Address</h4>
+            <address>
+              10 Botanic Avenue<br>
+              Belfast<br>
+              BT7 1JQ<br>
+              Northern Ireland
+            </address>
+          </div>
+
+          <div class="contact-block reveal reveal-delay-1">
+            <h4>Opening Hours</h4>
+            <div class="hours-table">
+              <div class="hours-row">
+                <span class="hours-day">Monday</span>
+                <span class="hours-time">9:00 – 18:00</span>
+              </div>
+              <div class="hours-row">
+                <span class="hours-day">Tuesday</span>
+                <span class="hours-time">9:00 – 18:00</span>
+              </div>
+              <div class="hours-row">
+                <span class="hours-day">Wednesday</span>
+                <span class="hours-time">9:00 – 18:00</span>
+              </div>
+              <div class="hours-row">
+                <span class="hours-day">Thursday</span>
+                <span class="hours-time">9:00 – 20:00</span>
+              </div>
+              <div class="hours-row">
+                <span class="hours-day">Friday</span>
+                <span class="hours-time">9:00 – 20:00</span>
+              </div>
+              <div class="hours-row">
+                <span class="hours-day">Saturday</span>
+                <span class="hours-time">8:30 – 17:30</span>
+              </div>
+              <div class="hours-row">
+                <span class="hours-day">Sunday</span>
+                <span class="hours-time closed">Closed</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-block reveal reveal-delay-2">
+            <h4>Contact</h4>
+            <p>
+              <a href="tel:+442890000000" style="color:var(--cream-dark);opacity:0.8;transition:color 0.3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--cream-dark)'">028 9000 0000</a><br>
+              <a href="mailto:hello@botanicbarbers.com" style="color:var(--cream-dark);opacity:0.8;transition:color 0.3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--cream-dark)'">hello@botanicbarbers.com</a>
+            </p>
+          </div>
+
+        </div>
+
+        <div class="map-placeholder reveal reveal-delay-2">
+          <!-- In production, replace with an actual Google Maps embed -->
+          <div style="position:absolute;inset:0;background:var(--charcoal-mid);display:flex;align-items:center;justify-content:center;">
+            <div style="text-align:center;">
+              <div style="font-size:2.5rem;margin-bottom:16px;">📍</div>
+              <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--cream-light);margin-bottom:8px;">10 Botanic Avenue</div>
+              <div style="font-size:0.78rem;letter-spacing:0.08em;color:var(--cream-dark);opacity:0.6;">Belfast, BT7 1JQ</div>
+              <a href="https://maps.google.com/?q=Botanic+Avenue+Belfast" target="_blank" rel="noopener" style="display:inline-block;margin-top:24px;font-size:0.7rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.35);padding:10px 22px;transition:all 0.3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--charcoal-dark)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">
+                Open in Maps
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          Botanic Turkish Barbers
+          <span>Belfast · Est. 2014</span>
+        </div>
+
+        <nav class="footer-links">
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#team">Barbers</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="footer-social">
+          <a class="social-icon" href="#" aria-label="Instagram" title="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a class="social-icon" href="#" aria-label="Facebook" title="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a class="social-icon" href="#" aria-label="Google" title="Google Reviews">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M12 12h4.5"/><path d="M12 7v5"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Botanic Turkish Barbers. All rights reserved.</p>
+        <p class="footer-copy">10 Botanic Avenue, Belfast BT7 1JQ · 028 9000 0000</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════
+       STICKY BOOKING BUTTON
+  ═══════════════════════════════════════ -->
+  <div id="sticky-book">
+    <a href="#book" class="sticky-btn">
+      ✦ &nbsp; Book Now
+    </a>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════ -->
+  <script>
+    /* ─── Navbar scroll behaviour ─── */
+    const navbar = document.getElementById('navbar');
+    const stickyBook = document.getElementById('sticky-book');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+
+      if (scrollY > 60) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+
+      if (scrollY > 500) {
+        stickyBook.classList.add('visible');
+      } else {
+        stickyBook.classList.remove('visible');
+      }
+
+      lastScroll = scrollY;
+    }, { passive: true });
+
+
+    /* ─── Mobile menu ─── */
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+
+    function closeMobileMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+      menuOpen = false;
+    }
+
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      hamburger.classList.toggle('open', menuOpen);
+      mobileMenu.classList.toggle('open', menuOpen);
+      document.body.style.overflow = menuOpen ? 'hidden' : '';
+    });
+
+
+    /* ─── Scroll reveal ─── */
+    const revealEls = document.querySelectorAll('.reveal');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -48px 0px'
+    });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+
+
+
+    /* ─── Reviews marquee ─── */
+    const reviewData = [
+      { name:"Ciarán O'Neill",    init:"C", date:"September 2025", platform:"g",  service:"Cut & Beard Trim",       stars:5, text:"Best barbershop in Belfast, without question. I've been coming here for four years and I've never left disappointed. The hot towel shave is something else entirely — it's an experience.", wide:false },
+      { name:"James Fitzpatrick", init:"J", date:"August 2025",    platform:"g",  service:"Classic Cut & Finish",   stars:5, text:"I've tried a lot of barbers across the city. Nothing comes close. The attention to detail, the atmosphere, the conversation — it's a proper old-school experience done perfectly.", wide:false },
+      { name:"Daniel Murray",     init:"D", date:"July 2025",      platform:"fb", service:"The Full Works",          stars:5, text:"Walked in on a Saturday afternoon and was seen within minutes. Incredible fade, beard lined up perfectly. The lads here know their craft inside out. Highly recommend.", wide:false },
+      { name:"Tom Harrington",    init:"T", date:"June 2025",      platform:"g",  service:"Cut & Hot Shave",         stars:5, text:"My go-to since I moved to Belfast two years ago. Mehmet and the team are genuinely brilliant — they remember what you want and deliver every single time. A gem.", wide:false },
+      { name:"Patrick Doherty",   init:"P", date:"May 2025",       platform:"g",  service:"Kids Cut",                stars:5, text:"Took my son for his first proper haircut here. The barber was so patient with him. He left looking brilliant. We're both regulars now.", wide:false },
+      { name:"Sean McAllister",   init:"S", date:"April 2025",     platform:"fb", service:"Traditional Hot Shave",   stars:5, text:"The straight razor shave here is in a different league. Warm towel prep, incredibly smooth finish, proper aftershave ritual. Feels like stepping back in time in the best way.", wide:true },
+      { name:"Ronan Clarke",      init:"R", date:"March 2025",     platform:"g",  service:"Beard Sculpt",            stars:5, text:"Came in with a pretty wild beard, left looking like a different person. The shaping they did was exactly what I'd had in my head but couldn't describe. They just know.", wide:false },
+      { name:"Aidan Walsh",       init:"A", date:"February 2025",  platform:"g",  service:"Classic Cut & Finish",   stars:5, text:"Stumbled in here on my lunch break and ended up making it a standing monthly appointment. It's the little things — the warm towel at the end, the complimentary drink. Exceptional.", wide:false },
+      { name:"Michael Quinn",     init:"M", date:"January 2025",   platform:"fb", service:"Cut & Beard Trim",       stars:5, text:"The care they take here is extraordinary. I've been to dozens of barbers across Ireland and the UK. This is genuinely the best. Ali is an artist with clippers.", wide:false },
+      { name:"Conor Kelly",       init:"C", date:"December 2024",  platform:"g",  service:"The Full Works",          stars:5, text:"Treated myself to the full works before Christmas. What a 90 minutes. Every step felt considered and skilful. Left looking the sharpest I've been in years.", wide:false },
+      { name:"Liam Ó'Brien",      init:"L", date:"November 2024",  platform:"g",  service:"Classic Cut & Finish",   stars:5, text:"Unreal haircut. Connor is a seriously talented barber. Clean lines, perfect taper, and it grew out beautifully over the following weeks. Will not go anywhere else.", wide:false },
+      { name:"Eoin McCarthy",     init:"E", date:"October 2024",   platform:"fb", service:"Traditional Hot Shave",   stars:5, text:"Bought my dad a hot shave here for Father's Day. He rang me to say it was the best present he'd ever received. He's been back three times since. Result.", wide:true }
+    ];
+
+    function buildReviewCard(r) {
+      const dotClass = r.platform === 'g' ? 'rc-platform-dot--g' : 'rc-platform-dot--fb';
+      const dotLetter = r.platform === 'g' ? 'G' : 'f';
+      const wideClass = r.wide ? ' review-card--wide' : '';
+      return `
+        <div class="review-card${wideClass}" tabindex="0" role="article" aria-label="Review by ${r.name}">
+          <div class="rc-header">
+            <div class="rc-avatar">
+              ${r.init}
+              <span class="rc-platform-dot ${dotClass}">${dotLetter}</span>
+            </div>
+            <div>
+              <div class="rc-name">${r.name}</div>
+              <div class="rc-date">${r.date}</div>
+            </div>
+          </div>
+          <div class="rc-stars">${'★'.repeat(r.stars)}</div>
+          <p class="rc-text">"${r.text}"</p>
+          <div class="rc-footer">
+            <span class="rc-service">${r.service}</span>
+            <span class="rc-verified">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Verified
+            </span>
+          </div>
+        </div>`;
+    }
+
+    (function populateMarquee() {
+      const row1El = document.getElementById('reviewsRow1');
+      const row2El = document.getElementById('reviewsRow2');
+      if (!row1El || !row2El) return;
+      const r1 = reviewData.slice(0, 6);
+      const r2 = reviewData.slice(6);
+      row1El.innerHTML = [...r1, ...r1].map(buildReviewCard).join('');
+      row2El.innerHTML = [...r2, ...r2].map(buildReviewCard).join('');
+
+      // Pause on keyboard focus
+      [row1El, row2El].forEach(row => {
+        row.querySelectorAll('.review-card').forEach(card => {
+          card.addEventListener('focus', () => { row.style.animationPlayState = 'paused'; });
+          card.addEventListener('blur',  () => { row.style.animationPlayState = 'running'; });
+        });
+      });
+    })();
+
+
+    /* ─── Smooth active nav link on scroll ─── */
+    const sections = document.querySelectorAll('section[id], div[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(link => {
+            link.style.color = '';
+            if (link.getAttribute('href') === '#' + id) {
+              link.style.color = 'var(--gold)';
+            }
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    sections.forEach(s => sectionObserver.observe(s));
+
+
+    /* ─── Subtle parallax on hero ─── */
+    const heroBg = document.querySelector('.hero-bg');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      if (scrollY < window.innerHeight) {
+        heroBg.style.transform = `translateY(${scrollY * 0.18}px) scale(1.06)`;
+      }
+    }, { passive: true });
+
+  </script>
+
+</body>
+</html>
